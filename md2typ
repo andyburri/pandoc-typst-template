@@ -1,0 +1,38 @@
+#!/bin/bash
+# md2typ - Convert Markdown to Typst using Pandoc
+
+# Exit if any command fails
+set -e
+
+# Check if pandoc is installed
+if ! command -v pandoc >/dev/null 2>&1; then
+    echo "Error: pandoc is not installed." >&2
+    exit 1
+fi
+
+# Check for input file
+if [ $# -lt 1 ]; then
+    echo "Usage: $(basename "$0") <input.md> [output.typ]" >&2
+    exit 1
+fi
+
+input="$1"
+output="$2"
+
+# Ensure input file exists
+if [ ! -f "$input" ]; then
+    echo "Error: File '$input' not found." >&2
+    exit 1
+fi
+
+# If no output provided, replace .md with .pdf
+if [ -z "$output" ]; then
+    base="${input%.*}"
+    output="${base}.typ"
+fi
+
+# Run pandoc to convert
+echo "Converting '$input' → '$output'..."
+pandoc "$input" -o "$output" --template=typst.template
+
+echo "✅ Done: $output"

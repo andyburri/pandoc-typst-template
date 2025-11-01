@@ -1,0 +1,220 @@
+// for markdown hr
+#let horizontalrule = line(start: (25%,0%), end: (75%,0%))
+
+#show terms: it => {
+  it.children
+    .map(child => [
+      #strong[#child.term]
+      #block(inset: (left: 1.5em, top: -0.4em))[#child.description]
+      ])
+    .join()
+}
+
+#set table(
+  inset: 6pt,
+)
+
+$if(highlighting-definitions)$
+// syntax highlighting functions from skylighting:
+$highlighting-definitions$
+
+$endif$
+$if(template)$
+#import "$template$": conf
+$else$
+$bergfink.typ()$
+$endif$
+
+$if(smart)$
+$else$
+#set smartquote(enabled: false)
+$endif$
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+#show: doc => conf(
+$if(title)$
+  title: [$title$],
+$endif$
+$if(subtitle)$
+  subtitle: [$subtitle$],
+$endif$
+$if(authors)$
+  authors: (
+$for(authors)$
+$if(authors.name)$
+    ( name: [$authors.name$],
+      affiliation: "$authors.affiliation$",
+      email: "$authors.email$" ),
+$else$
+    ( name: [$authors$],
+      affiliation: "",
+      email: "" ),
+$endif$
+$endfor$
+    ),
+$endif$
+$if(dozent)$
+  dozent: [$dozent$],
+$endif$
+$if(dozentin)$
+  dozentin: [$dozentin$],
+$endif$
+$if(keywords)$
+  //keywords: ($for(keywords)$$keyword$$sep$,$endfor$),
+$endif$
+$if(date)$
+  date: [$date$],
+$endif$
+$if(lang)$
+  lang: "$lang$",
+$endif$
+$if(region)$
+  region: "$region$",
+$else$
+  region: "CH",
+$endif$
+$if(abstract-title)$
+  abstract-title: [$abstract-title$],
+$endif$
+$if(abstract)$
+  abstract: [$abstract$],
+$endif$
+$if(thanks)$
+  thanks: [$thanks$],
+$endif$
+$if(margin)$
+  margin: ($for(margin/pairs)$$margin.key$: $margin.value$,$endfor$),
+$endif$
+$if(papersize)$
+  paper: "$papersize$",
+$endif$
+$if(mainfont)$
+  font: ("$mainfont$",),
+$endif$
+$if(fontsize)$
+  fontsize: $fontsize$,
+$endif$
+$if(mathfont)$
+  mathfont: ($for(mathfont)$"$mathfont$",$endfor$),
+$endif$
+$if(codefont)$
+  codefont: ($for(codefont)$"$codefont$",$endfor$),
+$endif$
+$if(linestretch)$
+  linestretch: $linestretch$,
+$endif$
+  pagenumbering: $if(page-numbering)$"$page-numbering$"$else$none$endif$,
+$if(titlepage)$
+  titlepage: true,
+$endif$
+$if(titlepage-rule)$
+  titlepage-rule: $titlepage-rule$,
+$endif$
+$if(titlepage-bg)$
+  titlepage-bg: "$titlepage-bg$",
+$endif$
+$if(titlepage-fg)$
+  titlepage-fg: "$titlepage-fg$",
+$endif$
+$if(linkcolor)$
+  linkcolor: [$linkcolor$],
+$endif$
+$if(citecolor)$
+  citecolor: [$citecolor$],
+$endif$
+$if(filecolor)$
+  filecolor: [$filecolor$],
+$endif$
+  doc,
+)
+
+#set page(
+  header: [
+    $if(title)$$title$$endif$
+    #h(1fr)
+    $if(date)$$date$$else$#datetime.today().display()$endif$
+    #v(-1.5em)
+    #line(length: 100%)
+  ]
+)
+
+$if(section-numbering)$
+#set heading(numbering: "$section-numbering$")
+$endif$
+
+$if(listings)$
+#show raw.where(block: true): code => {
+  block(fill: luma(240), inset: 1em, stroke: 0.5pt + gray, width: 100%)[
+    #grid(
+      columns: (auto, auto),
+      column-gutter: 1em,
+      row-gutter: 0.75em,
+      align: (right, raw.align),
+      ..for line in code.lines {
+        (
+          text(fill: gray)[#line.number],
+          line.body,
+        )
+      },
+    )
+  ]
+}
+$else$
+#show raw.where(block: true): set par(leading: 0.75em)
+$endif$
+#show raw.where(block: true): set text(1em / 0.9)
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(toc)$
+#outline(
+  title: auto,
+  depth: $toc-depth$
+);
+
+$if(lof)$
+#outline(
+  title: "Abbildungsverzeichnis",
+  target: figure.where(kind: image),
+)
+$endif$
+
+$if(lot)$
+#outline(
+  title: "Tabellenverzeichnis",
+  target: figure.where(kind: table),
+)
+$endif$
+
+#pagebreak()
+$endif$
+
+#set page(columns: $if(columns)$$columns$$else$1$endif$)
+
+$body$
+
+$if(citations)$
+$for(nocite-ids)$
+#cite(label("${it}"), form: none)
+$endfor$
+$if(csl)$
+
+#set bibliography(style: "$csl$")
+$elseif(bibliographystyle)$
+
+#set bibliography(style: "$bibliographystyle$")
+$endif$
+$if(bibliography)$
+
+#bibliography(($for(bibliography)$"$bibliography$"$sep$,$endfor$)$if(full-bibliography)$, full: true$endif$)
+$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+$endfor$
