@@ -1,0 +1,12 @@
+html:
+  short: HTML
+  long: Hypertext Markup Language
+  group: Web
+css:
+  short: CSS
+  long: Cascading Style Sheets
+  group: Web
+fpga:
+  short: FPGA
+  long: Field Programmable Gate Array
+  group: Hardware

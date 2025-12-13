@@ -1,0 +1,301 @@
+//load defaults cfg dict
+$config.typ()$
+
+// overwrite defaults from pandoc variables
+$if(date)$
+#let parsedDate = "$date$"
+#if type(parsedDate) == str {
+  let dateArray = parsedDate.split(regex("[-/.]"))
+  parsedDate = datetime(
+    year: int(dateArray.at(0)),
+    month: int(dateArray.at(1)),
+    day: int(dateArray.at(2)),
+  )
+}
+#(cfg.date = parsedDate)
+$endif$
+
+$if(dateformat)$
+#(cfg.dateformat = "$dateformat$".replace("\\", ""))
+$endif$
+
+$if(authors)$
+#(cfg.authors = (
+$for(authors)$
+$if(authors.name)$
+    ( name: "$authors.name$",
+      affiliation: [$authors.affiliation$],
+      email: "$authors.email$" ),
+$else$
+    ( name: "$authors$",
+      affiliation: [],
+      email: "" ),
+$endif$
+$endfor$
+    )
+)
+$elseif(author)$
+#(cfg.authors = (
+$for(author)$
+$if(author.name)$
+    ( name: "$author.name$",
+      affiliation: [$author.affiliation$],
+      email: "$author.email$" ),
+$else$
+    ( name: "$author$",
+      affiliation: [],
+      email: "" ),
+$endif$
+$endfor$
+    )
+)
+$endif$
+$if(title)$
+#(cfg.title = [$title$])
+$endif$
+$if(subtitle)$
+#(cfg.subtitle = [$subtitle$])
+$endif$
+$if(supervisor)$
+#(cfg.supervisor = [$supervisor$])
+$endif$
+$if(keywords)$
+#(cfg.keywords = "$for(keywords)$$keywords$$sep$, $endfor$")
+$endif$
+$if(lang)$
+#(cfg.lang = "$lang$")
+$endif$
+$if(region)$
+#(cfg.region = "$region$")
+$endif$
+$if(margin)$
+#(cfg.margin = ($for(margin/pairs)$$margin.key$: $margin.value$,$endfor$))
+$endif$
+$if(papersize)$
+#(cfg.paper = "$papersize$")
+$endif$
+$if(mainfont)$
+#(cfg.font = ($for(mainfont)$"$mainfont$"$sep$, $endfor$,))
+$endif$
+$if(font)$
+#(cfg.font = ($for(font)$"$font$"$sep$, $endfor$,))
+$endif$
+$if(heading-font)$
+#(cfg.heading-font = ($for(heading-font)$"$heading-font$"$sep$, $endfor$,))
+$endif$
+$if(code-font)$
+#(cfg.code-font = ($for(code-font)$"$code-font$"$sep$, $endfor$,))
+$endif$
+$if(fontsize)$
+#(cfg.fontsize = $fontsize$)
+$endif$
+$if(leading)$
+#(cfg.leading = $leading$)
+$endif$
+$if(spacing)$
+#(cfg.spacing = $spacing$)
+$endif$
+$if(no-justify)$
+#(cfg.justify = false)
+$endif$
+$if(pagenumbering)$
+#(cfg.page-numbering = "$pagenumbering$")
+$endif$
+$if(titlepage-rule)$
+#(cfg.titlepage-rule = $titlepage-rule$)
+$endif$
+$if(titlepage-bg)$
+#(cfg.titlepage-bg = $titlepage-bg$)
+$endif$
+$if(titlepage-fg)$
+#(cfg.titlepage-fg = $titlepage-fg$)
+$endif$
+$if(titlepage-logo)$
+#(cfg.titlepage-logo = "$titlepage-logo$")
+$endif$
+$if(titlepage-logo-width)$
+#(cfg.titlepage-logo-width = $titlepage-logo-width$)
+$endif$
+$if(toc)$
+#(cfg.toc = true)
+$endif$
+$if(toc-depth)$
+#(cfg.toc-depth = $toc-depth$)
+$endif$
+$if(lof)$
+#(cfg.lof = true)
+$endif$
+$if(lot)$
+#(cfg.lot = true)
+$endif$
+$if(number-sections)$
+#(cfg.number-sections = true)
+$endif$
+$if(section-numbering)$
+#(cfg.section-numbering = "$section-numbering$")
+$endif$
+$if(columns)$
+#(cfg.columns = $columns$)
+$endif$
+$if(disable-header-and-footer)$
+#(cfg.disable-header-and-footer = true)
+$endif$
+$if(header-and-footer-stroke)$
+#(cfg.header-and-footer-stroke = $header-and-footer-stroke$)
+$endif$
+$if(toc-own-page)$
+#(cfg.toc-own-page = true)
+$endif$
+$if(abstract-title)$
+#(cfg.abstract-title = "$abstract-title$")
+$endif$
+$if(abstract)$
+#(cfg.abstract = "$abstract/nowrap$")
+$endif$
+$if(thanks-title)$
+#(cfg.thanks-title = "$thanks-title$")
+$endif$
+$if(thanks)$
+#(cfg.thanks = "$thanks/nowrap$")
+$endif$
+$if(header-left)$
+#(cfg.header-left = "$header-left$")
+$endif$
+$if(header-right)$
+#(cfg.header-right = "$header-right$")
+$endif$
+$if(header-center)$
+#(cfg.header-center = "$header-center$")
+$endif$
+$if(footer-left)$
+#(cfg.footer-left = "$footer-left$")
+$endif$
+$if(footer-right)$
+#(cfg.footer-right = "$footer-right$")
+$endif$
+$if(footer-center)$
+#(cfg.footer-center = "$footer-center$")
+$endif$
+$if(figure-prefix)$
+#(cfg.figure-prefix = "$figure-prefix$")
+$endif$
+$if(table-prefix)$
+#(cfg.table-prefix = "$table-prefix$")
+$endif$
+$if(listing-prefix)$
+#(cfg.listing-prefix = "$listing-prefix$")
+$endif$
+
+$default_styles.typ()$
+
+// listings
+#show raw.where(block: true): code => {
+$if(listings)$
+    block(
+      fill: gray.lighten(92%),
+      inset: 1em,
+      stroke: 0.5pt + gray,
+      width: 100%,
+    )[
+      #grid(
+        columns: (auto, auto),
+        column-gutter: 1em,
+        row-gutter: leading * 0.75,
+        align: (right, raw.align),
+        ..for line in code.lines {
+          (
+            text(fill: gray)[#line.number],
+            line.body,
+          )
+        },
+      )
+    ]
+$else$
+    block(above: 1.5em, below: 1.5em)[
+      #set par(leading: leading * 0.75)
+      #code
+    ]
+$endif$
+}
+
+$if(equation-numbering)$
+#set math.equation(numbering: "$equation-numbering$".replace("\(", "("))
+$endif$
+
+$if(glossy)$
+#import "@preview/glossy:0.9.0": *
+#let glossy-data = yaml("$glossy$")
+
+#let glossy-theme = (
+  // Main glossary section
+  section: (title, body) => {
+    body
+  },
+
+  // Group of related terms
+  group: (name, index, total, body) => {
+    // index = group index, total = total groups
+    if name != "" and total > 1 {
+      show heading.where(level: 2): set block(above: 2em, below: 1.375em)
+      heading(level: 2, name)
+    }
+    body
+  },
+
+  // Individual glossary entry
+  entry: (entry, index, total) => {
+    // index = entry index, total = total entries in group
+    let output = [#entry.short#entry.label] // **NOTE:** Label here!
+    if entry.long != none {
+      output = [#output -- #entry.long]
+    }
+    if entry.description != none {
+      output = [#output: #entry.description]
+    }
+    block(
+      grid(
+        columns: (auto, 1fr, auto),
+        output,
+        h(1fr),
+        entry.pages.join(", "),
+      )
+    )
+  }
+)
+
+#show: init-glossary.with(glossy-data)
+$endif$
+
+#import "@preview/note-me:0.6.0": *
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(titlepage)$
+$titlepage.typ()$
+$endif$
+
+$abstract.typ()$
+
+$if(toc)$
+$toc.typ()$
+$endif$
+
+#set page(
+  header: make-header(),
+  footer: make-footer(pn: page-numbering),
+  columns: cfg.at("columns", default: 1),
+)
+
+#counter(page).update(1)
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$

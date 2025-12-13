@@ -1,0 +1,9 @@
+html:
+  short: HTML
+  long: HyperText Markup Language
+css:
+  short: CSS
+  long: Cascading Style Sheets
+json:
+  short: JSON
+  long: JavaScript Object Notation
