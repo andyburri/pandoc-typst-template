@@ -260,7 +260,7 @@
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("2d304fc23bcba79f287e1d8bba057a3da5043115.svg"),
+#figure(image("60125fa626a59c124b6513ae0873818b6fa765ef.svg"),
   caption: [
     Mermaid Test
   ]

@@ -2,7 +2,6 @@
 leading: 0.75em
 spacing: 1.75em
 fontsize: 12pt
-font: arial
 no-justify: true
 heading-font: raleway
 font: source serif 4
