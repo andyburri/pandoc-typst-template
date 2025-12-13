@@ -21,6 +21,7 @@
 #if cfg.at("supervisor", default: none) != none [
   #v(2em)
   #cfg.supervisor
+  #v(2em)
 ]
 
 #if authors != none {

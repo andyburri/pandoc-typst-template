@@ -305,6 +305,7 @@ Mauris eget blandit nisi, faucibus imperdiet odio. Suspendisse blandit dolor sed
 #if cfg.at("supervisor", default: none) != none [
   #v(2em)
   #cfg.supervisor
+  #v(2em)
 ]
 
 #if authors != none {
