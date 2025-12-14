@@ -4,7 +4,7 @@ equation-numbering: (1)
 
 # Feature Showcase
 
-This document demonstrates all the features available in the typst-pandoc converter.
+This document demonstrates some of the features available in the Typst template.
 
 ## Text Formatting
 
@@ -138,12 +138,12 @@ sequenceDiagram
 ## Grid Table
 
 +-------------------------+
-| **Percentages**         |
+| **Percentages** |
 +:=================:+====:+
-| Fortyfive         | 45% |
+| Fortyfive | 45% |
 +-------------------+-----+
-| Twenty            | 20% |
+| Twenty | 20% |
 +-------------------+-----+
-| Thirtyfive        | 35% |
+| Thirtyfive | 35% |
 +-------------------+-----+
 : {align=left}

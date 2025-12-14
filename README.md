@@ -1,6 +1,6 @@
 # Bergfink
 
-A template for Pandoc to generate PDFs with typst.
+A template for Pandoc to generate PDFs with Typst.
 This template is based on the [Eisvogel template](https://github.com/Wandmalfarbe/pandoc-latex-template).
 
 ## Preview
@@ -70,11 +70,11 @@ another-file.md
 
 This does the following:
 
-- Stops pandoc from parsing typst references (`<ref>` and `@ref`)
-- Detects trailing `<refs>` in paragraphs and preserves them as typst references
+- Stops pandoc from parsing Typst references (`<ref>` and `@ref`)
+- Detects trailing `<refs>` in paragraphs and preserves them as Typst references
 - Replaces `<br>` with `pandoc.LineBreak()`. Useful for breaking lines inside markdown tables.
-- Parses `align` attributes in tables and images, and aligns them in typst accordingly.
-- Parses a `caption` attribute in code blocks and adds a typst caption to them.
+- Parses `align` attributes in tables and images, and aligns them in Typst accordingly.
+- Parses a `caption` attribute in code blocks and adds a Typst caption to them.
 - Adds gfm-style alerts.
 
 ## Template Variables

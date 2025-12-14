@@ -233,8 +233,8 @@
 
 = Feature Showcase
 <feature-showcase>
-This document demonstrates all the features available in the
-typst-pandoc converter.
+This document demonstrates some of the features available in the Typst
+template.
 
 == Text Formatting
 <text-formatting>
@@ -382,11 +382,11 @@ This is a note message styled differently.
   align(center)[#table(
     columns: (27.78%, 8.33%),
     align: (center,right,),
-    table.header(table.cell(colspan: 2)[#strong[Percentages]],),
+    table.header(table.cell(colspan: 2)[#strong[Percentages] |],),
     table.hline(),
-    [Fortyfive], [45%],
-    [Twenty], [20%],
-    [Thirtyfive], [35%],
+    table.cell(colspan: 2)[Fortyfive | 45% |],
+    table.cell(colspan: 2)[Twenty | 20% |],
+    table.cell(colspan: 2)[Thirtyfive | 35% |],
   )]
   , kind: table
   )
