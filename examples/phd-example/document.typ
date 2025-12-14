@@ -571,7 +571,7 @@ malesuada turpis blandit quis. Cras ultrices metus tempor laoreet
 sodales. Nam molestie ipsum ac imperdiet laoreet. Pellentesque habitant
 morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-#figure(image("figures/example_figure.pdf", width: 100.0%),
+#figure(image("figures/salin-de-lile-saint-martin.jpg", width: 100.0%),
   caption: [
     RV Calypso is a former British Royal Navy minesweeper converted into
     a research vessel for the oceanographic researcher Jacques-Yves
@@ -593,7 +593,7 @@ faucibus.
 
 #figure(image("figures/full_caption_example.jpg", width: 75.0%),
   caption: [
-    This is not a boat
+    This is the Luftschiffhafen
   ]
 )
 <fig:other_fig>

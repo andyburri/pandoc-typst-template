@@ -24,10 +24,10 @@ These are the results. In vitae odio at libero elementum fermentum vel iaculis e
 
 @fig:my_fig shows how to add a figure. Donec ut lacinia nibh. Nam tincidunt augue et tristique cursus. Vestibulum sagittis odio nisl, a malesuada turpis blandit quis. Cras ultrices metus tempor laoreet sodales. Nam molestie ipsum ac imperdiet laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-![RV Calypso is a former British Royal Navy minesweeper converted into a research vessel for the oceanographic researcher Jacques-Yves Cousteau. It was equipped with a mobile laboratory for underwater field research.](figures/example_figure.pdf){#fig:my_fig width=100% short-caption="Figure short caption"}
+![RV Calypso is a former British Royal Navy minesweeper converted into a research vessel for the oceanographic researcher Jacques-Yves Cousteau. It was equipped with a mobile laboratory for underwater field research.](figures/salin-de-lile-saint-martin.jpg){#fig:my_fig width=100% short-caption="Figure short caption"}
 
 ## Conclusion
 
 This is the conclusion to the chapter. Quisque nec purus a quam consectetur volutpat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In lorem justo, convallis quis lacinia eget, laoreet eu metus. Fusce blandit tellus tellus. Curabitur nec cursus odio. Quisque tristique eros nulla, vitae finibus lorem aliquam quis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
 
-![This is not a boat](figures/full_caption_example.jpg){#fig:other_fig width=75%}
+![This is the Luftschiffhafen](figures/full_caption_example.jpg){#fig:other_fig width=75%}

@@ -3,29 +3,83 @@
 A template for Pandoc to generate PDFs with typst.
 This template is based on the [Eisvogel template](https://github.com/Wandmalfarbe/pandoc-latex-template).
 
-## Install (Linux)
-
-```bash
-curl https://git.qxp.ch/andy/pandoc-typst-template/raw/branch/main/install.sh | bash
-```
-
-This installs the template and filters to `$HOME/.local/share/md2pdf` and the `md2pdf` command to `$HOME/.local/bin/`.
-To convert a Markdown file use `md2pdf mydocument.md`. The output is saved as `mydocument.pdf`.
-
-Save the `config.typ` from [here](https://git.qxp.ch/andy/pandoc-typst-template/raw/branch/main/cmd/template/config.typ) to `$HOME/.local/share/md2pdf`. Adjust the variables to change the defaults.
+## Preview
 
 | Custom title page                               | Basic example page                                  |
 | ----------------------------------------------- | --------------------------------------------------- |
 | ![Title page](examples/titlepage/preview-1.png) | ![basic page](examples/basic-example/preview-1.png) |
 
-# Included Lua Filters
+## Installation
 
-## Diagrams
+Download the template from `/cmd/template` and filters from `/cmd/filters`. Adjust the `config.typ` to your liking.
+
+### Manual Installation
+
+1. Download `md2pdf` from `/cmd/md2pdf` and save it to `~/.local/bin
+2. Download all files in `/cmd/template` to `~/.local/share/md2pdf/templates`
+3. Download all files in `/cmd/filters` to `~/.local/share/md2pdf/filters`
+
+### Install Script (Linux)
+
+```bash
+curl https://git.qxp.ch/andy/pandoc-typst-template/raw/branch/main/install.sh | bash
+```
+
+This does the following:
+
+- Downloads `md2pdf` from `/cmd/md2pdf` and saves it as `~/.local/bin/md2pdf`
+- Downloads the filters from `/cmd/filters` and saves them as `~/.local/share/md2pdf/filters`
+- Downloads the templates from `/cmd/template` and saves them as `~/.local/share/md2pdf/templates`
+
+### Configuration
+
+Adjust the `config.typ` as you like. You can find more information about the configuration in `/cmd/template/config.exmaple.typ`.
+
+## Usage
+
+Use the template with pandoc like this:
+
+```bash
+pandoc input_file.md -o output_file.pdf --pdf-engine=typst \
+ --template="bergfink.typst" \
+ -L "filters/include-files.lua" \
+ -L "filters/diagram.lua" \
+ -L "filters/typst-filters.lua"
+```
+
+or use the `md2pdf` bash script from `/cmd/md2pdf`
+
+## Included Lua Filters
+
+### Diagrams
 
 Renders diagrams using [Mermaid](https://mermaid.js.org/), [PlantUML](https://plantuml.com/) or [Pikchr](https://pikchr.org/).
 You need to have `mmdc`, `plantuml` and [`pikchr-cli`]() in your `PATH` to use them.
 
+### Include Files
+
+Includes files from a directory into your document. You can use it like this:
+
+````md
+```{.include shift-heading-level-by=n}
+another-file.md
+```
+````
+
+### Typst Filters
+
+This does the following:
+
+- Stops pandoc from parsing typst references (`<ref>` and `@ref`)
+- Detects trailing `<refs>` in paragraphs and preserves them as typst references
+- Replaces `<br>` with `pandoc.LineBreak()`. Useful for breaking lines inside markdown tables.
+- Parses `align` attributes in tables and images, and aligns them in typst accordingly.
+- Parses a `caption` attribute in code blocks and adds a typst caption to them.
+- Adds gfm-style alerts.
+
 ## Template Variables
+
+These variables can be set in the configuration, the metadata or the markdown frontmatter.
 
 | **Setting**                 | **Default Value**                               | **Description**                                             |
 | --------------------------- | ----------------------------------------------- | ----------------------------------------------------------- |

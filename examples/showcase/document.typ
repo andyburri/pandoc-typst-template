@@ -382,11 +382,11 @@ This is a note message styled differently.
   align(center)[#table(
     columns: (27.78%, 8.33%),
     align: (center,right,),
-    table.header(table.cell(colspan: 2)[#strong[Percentages] |],),
+    table.header(table.cell(colspan: 2)[#strong[Percentages]],),
     table.hline(),
-    table.cell(colspan: 2)[Fortyfive | 45% |],
-    table.cell(colspan: 2)[Twenty | 20% |],
-    table.cell(colspan: 2)[Thirtyfive | 35% |],
+    [Fortyfive], [45%],
+    [Twenty], [20%],
+    [Thirtyfive], [35%],
   )]
   , kind: table
   )

@@ -138,12 +138,12 @@ sequenceDiagram
 ## Grid Table
 
 +-------------------------+
-| **Percentages** |
+| **Percentages**         |
 +:=================:+====:+
-| Fortyfive | 45% |
+| Fortyfive         | 45% |
 +-------------------+-----+
-| Twenty | 20% |
+| Twenty            | 20% |
 +-------------------+-----+
-| Thirtyfive | 35% |
+| Thirtyfive        | 35% |
 +-------------------+-----+
 : {align=left}
