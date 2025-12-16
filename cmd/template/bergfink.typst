@@ -287,8 +287,9 @@ $toc.typ()$
 $endif$
 
 #set page(
+  numbering: cfg.at("page-numbering", default: "1"),
   header: make-header(),
-  footer: make-footer(pn: page-numbering),
+  footer: make-footer(),
   columns: cfg.at("columns", default: 1),
 )
 

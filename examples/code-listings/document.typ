@@ -44,21 +44,16 @@
 }
 
 // Define a helper for the footer
-#let page-numbering = cfg.at("page-numbering", default: "1")
-#let footer-right(
-  pn: page-numbering,
-) = {
+#let footer-right() = {
   return cfg.at(
     "footer-right",
     default: counter(
       page,
-    ).display(pn, both: pn.contains(regex("[ /]"))),
+    ).display(page.numbering, both: page.numbering.contains(regex("[ /]"))),
   )
 }
 
-#let make-footer(
-  pn: page-numbering,
-) = context {
+#let make-footer() = context {
   if cfg.at("disable-header-and-footer", default: false) != true [
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
@@ -67,7 +62,7 @@
       align: (left, center, right),
       cfg.at("footer-left", default: authors.map(author => author.name).join(", ")),
       cfg.at("footer-center", default: none),
-      footer-right(pn: pn),
+      footer-right(),
     )
   ] else []
 }
@@ -88,7 +83,7 @@
 #set page(
   paper: cfg.at("paper", default: "a4"),
   margin: margin,
-  numbering: page-numbering,
+  numbering: cfg.at("page-numbering", default: "1"),
 )
 
 #let leading = cfg.at("leading", default: 0.65em)
@@ -210,8 +205,9 @@
 
 
 #set page(
+  numbering: "I",
   header: make-header(),
-  footer: make-footer(pn: "I"),
+  footer: make-footer(),
 )
 
 // set links to underline
@@ -238,8 +234,9 @@
 }
 
 #set page(
+  numbering: cfg.at("page-numbering", default: "1"),
   header: make-header(),
-  footer: make-footer(pn: page-numbering),
+  footer: make-footer(),
   columns: cfg.at("columns", default: 1),
 )
 

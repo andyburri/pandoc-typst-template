@@ -1,6 +1,7 @@
 #set page(
+  numbering: "I",
   header: make-header(),
-  footer: make-footer(pn: "I"),
+  footer: make-footer(),
 )
 
 // set links to underline
