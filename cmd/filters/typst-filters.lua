@@ -89,8 +89,14 @@ function Table(el)
     if cols then
         cols = cols:gsub("^%s*%(", ""):gsub("%)%s*$", "")
         local new_cols = "columns: (" .. cols .. "),"
-        local pattern = "([ \t]*)columns:%s*%b(),"
-        tbl = tbl:gsub(pattern, function(indent)
+
+        -- replace columns: ( ... ),
+        tbl = tbl:gsub("([ \t]*)columns:%s*%b(),", function(indent)
+            return indent .. new_cols
+        end, 1)
+
+        -- replace columns: 3,
+        tbl = tbl:gsub("([ \t]*)columns:%s*%d+,", function(indent)
             return indent .. new_cols
         end, 1)
     end
