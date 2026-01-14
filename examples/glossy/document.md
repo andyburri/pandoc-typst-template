@@ -14,4 +14,4 @@ This text should link to @raspberry-pi.
 
 # Glossary
 
-`#glossary(theme: glossy-theme)`{=typst}
+`#print-glossary(glossy-data)`{=typst}

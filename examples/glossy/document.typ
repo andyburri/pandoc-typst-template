@@ -183,48 +183,11 @@
 }
 
 
-#import "@preview/glossy:0.9.0": *
+#import "@preview/glossarium:0.5.10": make-glossary, register-glossary, print-glossary, gls, glspl
+#show: make-glossary
 #let glossy-data = yaml("glossy.yaml")
 
-#let glossy-theme = (
-  // Main glossary section
-  section: (title, body) => {
-    body
-  },
-
-  // Group of related terms
-  group: (name, index, total, body) => {
-    // index = group index, total = total groups
-    if name != "" and total > 1 {
-      show heading.where(level: 2): set block(above: 2em, below: 1.375em)
-      heading(level: 2, name)
-    }
-    body
-  },
-
-  // Individual glossary entry
-  entry: (entry, index, total) => {
-    // index = entry index, total = total entries in group
-    let output = [#entry.short#entry.label] // **NOTE:** Label here!
-    if entry.long != none {
-      output = [#output -- #entry.long]
-    }
-    if entry.description != none {
-      output = [#output: #entry.description]
-    }
-    block(
-      grid(
-        columns: (auto, 1fr, auto, auto),
-        output,
-        h(1fr),
-        h(2em),
-        entry.pages.join(", "),
-      )
-    )
-  }
-)
-
-#show: init-glossary.with(glossy-data)
+#register-glossary(glossy-data)
 
 #import "@preview/note-me:0.6.0": *
 
@@ -283,4 +246,4 @@ This text should link to @raspberry-pi.
 
 = Glossary
 <glossary>
-#glossary(theme: glossy-theme)
+#print-glossary(glossy-data)

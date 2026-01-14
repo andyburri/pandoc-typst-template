@@ -1,16 +1,16 @@
-html:
+- key: html
   short: HTML
   long: Hypertext Markup Language
   group: Web
-css:
+- key: css
   short: CSS
   long: Cascading Style Sheets
   group: Web
-fpga:
+- key: fpga
   short: FPGA
   long: Field Programmable Gate Array
   group: Hardware
-raspberry-pi:
+- key: raspberry-pi
   short: Raspberry Pi
   long: Raspberry Pi
   group: Hardware
