@@ -10,6 +10,8 @@ glossy: glossy.yaml
 
 The second occurrence of @html, @fpga and @css in the document shouldn't show the long name of the terms.
 
+This text should link to @raspberry-pi.
+
 # Glossary
 
 `#glossary(theme: glossy-theme)`{=typst}

@@ -4,7 +4,10 @@ listings: true
 
 # PlantUML
 
-```plantuml {caption="PlantUML Test" align=left}
+This text should link to @plantuml-test.
+
+
+```plantuml {caption="PlantUML Test" align=left #plantuml-test}
 @startuml
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response

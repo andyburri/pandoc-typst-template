@@ -10,3 +10,8 @@ fpga:
   short: FPGA
   long: Field Programmable Gate Array
   group: Hardware
+raspberry-pi:
+  short: Raspberry Pi
+  long: Raspberry Pi
+  group: Hardware
+  description: The Raspberry Pi is a single-board computer that is popular for its low cost and small size.

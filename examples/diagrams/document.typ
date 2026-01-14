@@ -244,6 +244,8 @@
 
 = PlantUML
 <plantuml>
+This text should link to @plantuml-test.
+
 #[
 #show figure: set align(left)
 #figure(image("acbf07d554f7cc1816dbe6de11f5c7cc5728598d.svg"),
@@ -251,13 +253,14 @@
     PlantUML Test
   ]
 )
+<plantuml-test>
 
 ]
 = Mermaid
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("aa037fa0b027891e847d5d6833ebb6d5f795ae91.svg"),
+#figure(image("7ee3f4d39510482803c42a94fabbe4be2d663fdd.svg"),
   caption: [
     Mermaid Test
   ]

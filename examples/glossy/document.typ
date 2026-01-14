@@ -214,9 +214,10 @@
     }
     block(
       grid(
-        columns: (auto, 1fr, auto),
+        columns: (auto, 1fr, auto, auto),
         output,
         h(1fr),
+        h(2em),
         entry.pages.join(", "),
       )
     )
@@ -277,6 +278,8 @@ can be used without it. The same with @fpga and @css.
 
 The second occurrence of @html, @fpga and @css in the document shouldn't
 show the long name of the terms.
+
+This text should link to @raspberry-pi.
 
 = Glossary
 <glossary>

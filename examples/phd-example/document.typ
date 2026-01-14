@@ -262,9 +262,10 @@ Mauris eget blandit nisi, faucibus imperdiet odio. Suspendisse blandit dolor sed
     }
     block(
       grid(
-        columns: (auto, 1fr, auto),
+        columns: (auto, 1fr, auto, auto),
         output,
         h(1fr),
+        h(2em),
         entry.pages.join(", "),
       )
     )
