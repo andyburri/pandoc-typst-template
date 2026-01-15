@@ -46,16 +46,28 @@ function Para(el)
         end
     end
     
-    -- Preserve #[@ref] as Typst inline
-    -- Detect a pattern: [Str "#",RawInline (typst) "@something",Str "-text"]
-    if #inlines == 3 
-        and inlines[1].t == "Str" and inlines[1].text == "#" 
-        and inlines[2].t == "RawInline" and inlines[2].format == "typst"
-        and inlines[2].text:match("^@[%w:_-]+$")
-        and inlines[3].t == "Str" and inlines[3].text == "-text" then
-        local ref = inlines[2].text
-        -- output Typst: #[@blindtext]
-        return pandoc.Para({pandoc.RawInline('typst', '#[' .. ref .. ']')})
+    -- Preserve #[@ref] as Typst inline inside any paragraph
+    local i = 1
+    local new_inlines = {}
+    while i <= #inlines do
+        -- Look for [Str "#", RawInline(typst) "@something", Str "-Pakete", ...]
+        if inlines[i] and inlines[i].t == "Str" and inlines[i].text == "#" 
+            and inlines[i+1] and inlines[i+1].t == "RawInline" and inlines[i+1].format == "typst"
+            and inlines[i+1].text:match("^@[%w:_-]+$")
+        then
+            local ref = inlines[i+1].text
+            -- Output as RawInline to avoid escaping by Pandoc's writer
+            table.insert(new_inlines, pandoc.RawInline('typst', '#[' .. ref .. ']'))
+            -- Optionally, skip the following Str "-Pakete" if you only want #[@ref]
+            i = i + 2 -- move past "#", and "@something"
+        else
+            table.insert(new_inlines, inlines[i])
+            i = i + 1
+        end
+    end
+    -- Only return new Para if something changed
+    if #new_inlines ~= #inlines then
+        return pandoc.Para(new_inlines)
     end
 
     return el
