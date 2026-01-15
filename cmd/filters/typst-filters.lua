@@ -45,6 +45,18 @@ function Para(el)
             return pandoc.Para(new_inlines)
         end
     end
+    
+    -- Preserve #[@ref] as Typst inline
+    -- Detect a pattern: [Str "#",RawInline (typst) "@something",Str "-text"]
+    if #inlines == 3 
+        and inlines[1].t == "Str" and inlines[1].text == "#" 
+        and inlines[2].t == "RawInline" and inlines[2].format == "typst"
+        and inlines[2].text:match("^@[%w:_-]+$")
+        and inlines[3].t == "Str" and inlines[3].text == "-text" then
+        local ref = inlines[2].text
+        -- output Typst: #[@blindtext]
+        return pandoc.Para({pandoc.RawInline('typst', '#[' .. ref .. ']')})
+    end
 
     return el
 end
@@ -59,6 +71,8 @@ function RawInline(el)
         end
     end
 end
+
+
 
 -- Helper: check for class
 local function hasClass(el, class)
