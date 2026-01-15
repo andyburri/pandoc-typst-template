@@ -1,9 +1,9 @@
-html:
+- key: html
   short: HTML
   long: HyperText Markup Language
-css:
+- key: css
   short: CSS
   long: Cascading Style Sheets
-json:
+- key: json
   short: JSON
   long: JavaScript Object Notation

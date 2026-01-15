@@ -119,8 +119,7 @@
 #show heading.where(level: 2): set text(fontsize * 1.1)
 #show heading.where(level: 2): set block(above: 2em, below: 1.375em)
 
-// #show heading.where(level: 3): set text(fontsize * 1.1)
-#show heading.where(level: 3): set block(above: 3.25em, below: 1em)
+#show heading.where(level: 3): set block(above: 2em, below: 1em)
 
 // set figure styles
 #show figure: set block(above: 2em, below: 2em)
@@ -260,7 +259,7 @@ This text should link to @plantuml-test.
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("7ee3f4d39510482803c42a94fabbe4be2d663fdd.svg"),
+#figure(image("b12114d3715486dd8a46ae740ca2fb5b6bd3690a.svg"),
   caption: [
     Mermaid Test
   ]

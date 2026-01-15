@@ -122,8 +122,7 @@
 #show heading.where(level: 2): set text(fontsize * 1.1)
 #show heading.where(level: 2): set block(above: 2em, below: 1.375em)
 
-// #show heading.where(level: 3): set text(fontsize * 1.1)
-#show heading.where(level: 3): set block(above: 3.25em, below: 1em)
+#show heading.where(level: 3): set block(above: 2em, below: 1em)
 
 // set figure styles
 #show figure: set block(above: 2em, below: 2em)
