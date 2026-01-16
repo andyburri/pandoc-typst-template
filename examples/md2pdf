@@ -13,47 +13,75 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-input="$1"
-shift # remove first argument (input file)
-
+# Parse arguments: find output file (ends with .pdf) and collect inputs/options
 output=""
+inputs=()
 extra_args=()
 
-# Check if the next argument is an output file (ends with .pdf)
-if [[ "$1" == *.pdf ]]; then
-    output="$1"
-    shift # remove output argument
-fi
+for arg in "$@"; do
+    if [[ "$arg" == *.pdf ]]; then
+        output="$arg"
+    elif [[ "$arg" == --* ]]; then
+        # Pandoc option
+        extra_args+=("$arg")
+    else
+        # Input file
+        inputs+=("$arg")
+    fi
+done
 
-# The rest are extra pandoc arguments
-extra_args=("$@")
-
-# Ensure input file exists
-if [ ! -f "$input" ]; then
-    echo "Error: File '$input' not found." >&2
+# Check that we have at least one input file
+if [ ${#inputs[@]} -eq 0 ]; then
+    echo "Error: No input files specified." >&2
     exit 1
 fi
 
-# Resolve input directory and filename
-input_dir="$(cd "$(dirname "$input")" && pwd)"
-input_file="$(basename "$input")"
+# Use first input for directory resolution (for output path)
+input="${inputs[0]}"
 
-# If no output provided, replace .md with .pdf
+# Ensure all input files exist
+for infile in "${inputs[@]}"; do
+    if [ ! -f "$infile" ]; then
+        echo "Error: File '$infile' not found." >&2
+        exit 1
+    fi
+done
+
+# Resolve input directory (use first input for directory)
+input_dir="$(cd "$(dirname "$input")" && pwd)"
+
+# If no output provided, use first input file name with .pdf extension
 if [ -z "$output" ]; then
+    input_file="$(basename "$input")"
     base="${input_file%.*}"
     output="${base}.pdf"
 fi
 
-# Change to input directory
+# Resolve all input files to absolute paths
+input_files=()
+for infile in "${inputs[@]}"; do
+    # If it's already absolute, use as-is; otherwise resolve relative to current dir
+    if [[ "$infile" == /* ]]; then
+        input_files+=("$infile")
+    else
+        input_files+=("$(cd "$(dirname "$infile")" && pwd)/$(basename "$infile")")
+    fi
+done
+
+# Change to input directory (for relative output paths)
 cd "$input_dir"
 
 # Run pandoc to convert
-echo "Converting '$input' → '$output'..."
-pandoc "$input_file" -o "$output" --pdf-engine=typst \
- --template=$SHARE_DIR/template/bergfink.typst \
- -L $SHARE_DIR/filters/include-files.lua \
- -L $SHARE_DIR/filters/diagram.lua \
- -L $SHARE_DIR/filters/typst-filters.lua \
+if [ ${#inputs[@]} -eq 1 ]; then
+    echo "Converting '${inputs[0]}' → '$output'..."
+else
+    echo "Converting ${#inputs[@]} files → '$output'..."
+fi
+pandoc "${input_files[@]}" -o "$output" --pdf-engine=typst \
+ --template="$SHARE_DIR/template/bergfink.typst" \
+ -L "$SHARE_DIR/filters/include-files.lua" \
+ -L "$SHARE_DIR/filters/diagram.lua" \
+ -L "$SHARE_DIR/filters/typst-filters.lua" \
  "${extra_args[@]}"
 
-echo "✅ Done: $output"
+echo "✅ Done: $input_dir/$output"

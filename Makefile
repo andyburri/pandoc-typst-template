@@ -13,7 +13,7 @@ pdf:
 	@for example in $(EXAMPLES); do \
 		examples/md2pdf examples/$$example/document.md; \
 	done
-	@cd examples/phd-example && bash ../md2pdf *.md --metadata-file=metadata.yaml --output=document.pdf
+	@cd examples/phd-example && bash ../md2pdf *.md document.pdf --metadata-file=metadata.yaml
 
 # --- Global Typst ---
 
@@ -22,7 +22,7 @@ typ:
 	@for example in $(EXAMPLES); do \
 		examples/md2typ examples/$$example/document.md; \
 	done
-	@cd examples/phd-example && bash ../md2typ *.md --metadata-file=metadata.yaml --output=document.typ
+	@cd examples/phd-example && bash ../md2typ *.md document.typ --metadata-file=metadata.yaml
 
 # --- Global Preview ---
 
