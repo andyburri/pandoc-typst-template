@@ -136,7 +136,7 @@ These variables can be set in the configuration, the metadata or the markdown fr
 | `abstract`                  | `""`                                            | Content of the abstract.                                    |
 | `thanks-title`              | `""`                                            | Title of the acknowledgments section.                       |
 | `thanks`                    | `""`                                            | Content of the acknowledgments section.                     |
-| `glossy`                    | `none`                                          | Path to a YAML file with the glossary.                      |
+| `glossary`                  | `none`                                          | Path to a YAML file with the glossary.                      |
 | `smart`                     | `true`                                          | Enables smart quotes.                                       |
 | `equation-numbering`        | `none`                                          | Controls equation numbering style.                          |
 | `header-includes`           | `[]`                                            | Additional Typst or Markdown code to include in the header. |

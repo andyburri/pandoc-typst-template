@@ -259,7 +259,7 @@ This text should link to @plantuml-test.
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("b12114d3715486dd8a46ae740ca2fb5b6bd3690a.svg"),
+#figure(image("7b6686dff0cce558a393892821c87e5e3ba93a6f.svg"),
   caption: [
     Mermaid Test
   ]

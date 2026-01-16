@@ -1,5 +1,5 @@
 ---
-glossy: glossy.yaml
+glossary: glossary.yaml
 ---
 
 # Glossary Test
@@ -14,4 +14,4 @@ This text should link to @raspberry-pi.
 
 # Glossary
 
-`#print-glossary(glossy-data)`{=typst}
+`#print-glossary(glossary-data)`{=typst}

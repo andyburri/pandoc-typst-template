@@ -2,7 +2,7 @@
 
 EXAMPLES = basic-example bibliography dateformat showcase no-justify \
            no-header-footer code-listings titlepage columns tables \
-           custom-header-footer glossy images alerts diagrams fonts
+           custom-header-footer glossary images alerts diagrams fonts
 
 all: pdf typ preview
 

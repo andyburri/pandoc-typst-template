@@ -32,7 +32,7 @@ thanks: |
   justo. Proin convallis accumsan sem ac vulputate. Sed rhoncus ipsum eu urna
   placerat, sed rhoncus erat facilisis. Praesent vitae vestibulum dui. Proin
   interdum tellus ac velit varius, sed finibus turpis placerat.
-glossy: glossy.yaml
+glossary: glossary.yaml
 toc: true
 lof: true
 lot: true

@@ -14,4 +14,4 @@
   short: Raspberry Pi
   long: Raspberry Pi
   group: Hardware
-  description: The Raspberry Pi is a single-board computer that is popular for its low cost and small size.
+  description: "The Raspberry Pi is a single-board #link(\"https://www.raspberrypi.com/\") computer that is popular for its low cost and small size."

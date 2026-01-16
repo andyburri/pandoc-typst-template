@@ -222,12 +222,24 @@ $if(equation-numbering)$
 #set math.equation(numbering: "$equation-numbering$".replace("\(", "("))
 $endif$
 
-$if(glossy)$
+$if(glossary)$
 #import "@preview/glossarium:0.5.10": make-glossary, register-glossary, print-glossary, gls, glspl
 #show: make-glossary
-#let glossy-data = yaml("$glossy$")
+#let glossary-data = yaml("$glossary$")
 
-#register-glossary(glossy-data)
+#let new-glossary-data = ()
+#for arr in glossary-data {
+  if arr.at("description", default: none) != none {
+    arr.description = eval(arr.description, mode: "markup")
+    new-glossary-data.push(arr)
+  } else {
+    new-glossary-data.push(arr)
+  }
+}
+
+#(glossary-data = new-glossary-data)
+
+#register-glossary(glossary-data)
 $endif$
 
 #import "@preview/note-me:0.6.0": *

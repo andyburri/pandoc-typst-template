@@ -6,7 +6,7 @@
 
 ```{=typst}
 #set heading(numbering: none)
-#print-glossary(glossy-data)
+#print-glossary(glossary-data)
 
 #pagebreak()
 ```

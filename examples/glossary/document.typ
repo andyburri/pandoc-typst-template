@@ -184,9 +184,21 @@
 
 #import "@preview/glossarium:0.5.10": make-glossary, register-glossary, print-glossary, gls, glspl
 #show: make-glossary
-#let glossy-data = yaml("glossy.yaml")
+#let glossary-data = yaml("glossary.yaml")
 
-#register-glossary(glossy-data)
+#let new-glossary-data = ()
+#for arr in glossary-data {
+  if arr.at("description", default: none) != none {
+    arr.description = eval(arr.description, mode: "markup")
+    new-glossary-data.push(arr)
+  } else {
+    new-glossary-data.push(arr)
+  }
+}
+
+#(glossary-data = new-glossary-data)
+
+#register-glossary(glossary-data)
 
 #import "@preview/note-me:0.6.0": *
 
@@ -245,4 +257,4 @@ This text should link to @raspberry-pi.
 
 = Glossary
 <glossary>
-#print-glossary(glossy-data)
+#print-glossary(glossary-data)
