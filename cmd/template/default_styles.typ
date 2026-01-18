@@ -69,9 +69,17 @@
   author: authors.map(author => author.name).join(", "),
 )
 
-#let margin = cfg.at("margin", default: (x: 2.5cm, y: 3.5cm))
+#let margin = cfg.at("margin", default: (x: 2.5cm, top: 3.5cm, bottom: 3.5cm))
 #if disable-header-footer == true {
-  margin = margin.y - 3em
+  margin = (x: margin.x, top: margin.top - 3em, bottom: margin.bottom - 3em)
+}
+
+#if disable-header == true {
+  margin = (x: margin.x, top: margin.top - 3em, bottom: margin.bottom)
+}
+
+#if disable-footer == true {
+  margin = (x: margin.x, top: margin.top, bottom: margin.bottom - 3em)
 }
 
 #set page(
