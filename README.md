@@ -22,7 +22,7 @@ Download the template from `/cmd/template` and filters from `/cmd/filters`. Adju
 ### Install Script (Linux)
 
 ```bash
-curl https://git.qxp.ch/andy/pandoc-typst-template/raw/branch/main/install.sh | bash
+curl https://raw.githubusercontent.com/andyburri/pandoc-typst-template/refs/heads/main/install.sh | bash
 ```
 
 This does the following:
