@@ -140,6 +140,12 @@ $endif$
 $if(disable-header-and-footer)$
 #(cfg.disable-header-and-footer = true)
 $endif$
+$if(disable-header)$
+#(cfg.disable-header = true)
+$endif$
+$if(disable-footer)$
+#(cfg.disable-footer = true)
+$endif$
 $if(header-and-footer-stroke)$
 #(cfg.header-and-footer-stroke = $header-and-footer-stroke$)
 $endif$

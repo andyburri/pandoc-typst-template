@@ -14,10 +14,12 @@
 
 #let authors = cfg.at("authors", default: ((name: "", email: "", affiliation: ""),))
 #let disable-header-footer = cfg.at("disable-header-and-footer", default: false)
+#let disable-header = cfg.at("disable-header", default: false)
+#let disable-footer = cfg.at("disable-footer", default: false)
 
 // Define a helper for the header
 #let make-header() = context {
-  if disable-header-footer != true [
+  if disable-header-footer != true and disable-header != true [
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left, center, right),
@@ -46,7 +48,7 @@
 }
 
 #let make-footer() = context {
-  if cfg.at("disable-header-and-footer", default: false) != true [
+  if disable-header-footer != true and disable-footer != true [
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
     #grid(
