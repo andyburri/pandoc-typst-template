@@ -38,13 +38,32 @@
 }
 
 // Define a helper for the footer
+#let footer-left() = {
+  let fl = cfg.at(
+    "footer-left",
+    default: authors.map(author => author.name).join(", "),
+  )
+
+  if lower(fl) == "none" {
+    return none
+  } else {
+    return fl
+  }
+}
+
 #let footer-right() = {
-  return cfg.at(
+  let fr = cfg.at(
     "footer-right",
     default: counter(
       page,
     ).display(page.numbering, both: page.numbering.contains(regex("[ /]"))),
   )
+
+  if lower(fr) == "none" {
+    return none
+  } else {
+    return fr
+  }
 }
 
 #let make-footer() = context {
@@ -54,9 +73,7 @@
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left, center, right),
-      cfg.at("footer-left", default: authors.map(author => author.name).join(", ")),
-      cfg.at("footer-center", default: none),
-      footer-right(),
+      footer-left(), cfg.at("footer-center", default: none), footer-right(),
     )
   ] else []
 }
