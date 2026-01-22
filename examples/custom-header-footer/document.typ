@@ -28,10 +28,12 @@
 
 #let authors = cfg.at("authors", default: ((name: "", email: "", affiliation: ""),))
 #let disable-header-footer = cfg.at("disable-header-and-footer", default: false)
+#let disable-header = cfg.at("disable-header", default: false)
+#let disable-footer = cfg.at("disable-footer", default: false)
 
 // Define a helper for the header
 #let make-header() = context {
-  if disable-header-footer != true [
+  if disable-header-footer != true and disable-header != true [
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left, center, right),
@@ -50,25 +52,42 @@
 }
 
 // Define a helper for the footer
+#let footer-left() = {
+  let fl = cfg.at(
+    "footer-left",
+    default: authors.map(author => author.name).join(", "),
+  )
+
+  if lower(fl) == "none" {
+    return none
+  } else {
+    return fl
+  }
+}
+
 #let footer-right() = {
-  return cfg.at(
+  let fr = cfg.at(
     "footer-right",
     default: counter(
       page,
     ).display(page.numbering, both: page.numbering.contains(regex("[ /]"))),
   )
+
+  if lower(fr) == "none" {
+    return none
+  } else {
+    return fr
+  }
 }
 
 #let make-footer() = context {
-  if cfg.at("disable-header-and-footer", default: false) != true [
+  if disable-header-footer != true and disable-footer != true [
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left, center, right),
-      cfg.at("footer-left", default: authors.map(author => author.name).join(", ")),
-      cfg.at("footer-center", default: none),
-      footer-right(),
+      footer-left(), cfg.at("footer-center", default: none), footer-right(),
     )
   ] else []
 }
@@ -81,9 +100,17 @@
   author: authors.map(author => author.name).join(", "),
 )
 
-#let margin = cfg.at("margin", default: (x: 2.5cm, y: 3.5cm))
+#let margin = cfg.at("margin", default: (x: 2.5cm, top: 3.5cm, bottom: 3.5cm))
 #if disable-header-footer == true {
-  margin = margin.y - 3em
+  margin = (x: margin.x, top: margin.top - 3em, bottom: margin.bottom - 3em)
+}
+
+#if disable-header == true {
+  margin = (x: margin.x, top: margin.top - 3em, bottom: margin.bottom)
+}
+
+#if disable-footer == true {
+  margin = (x: margin.x, top: margin.top, bottom: margin.bottom - 3em)
 }
 
 #set page(

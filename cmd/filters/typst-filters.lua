@@ -6,6 +6,7 @@ end
 
 -- Preserve Typst-style @refs and <refs> when converting Markdown → Typst
 -- Handle citations like @formula-one literally
+-- Note: Wrapping citations in #[...] when not followed by a space is handled in Para()
 function Cite(el)
     local result = {}
     for _, citation in ipairs(el.citations) do
@@ -46,12 +47,29 @@ function Para(el)
         end
     end
     
-    -- Preserve #[@ref] as Typst inline inside any paragraph
+    -- Process citations: wrap in #[...] if not followed by a space
     local i = 1
     local new_inlines = {}
+    local modified = false
     while i <= #inlines do
-        -- Look for [Str "#", RawInline(typst) "@something", Str "-Pakete", ...]
-        if inlines[i] and inlines[i].t == "Str" and inlines[i].text == "#" 
+        -- Check if current element is a citation (RawInline with typst format starting with @)
+        if inlines[i] and inlines[i].t == "RawInline" and inlines[i].format == "typst"
+            and inlines[i].text:match("^@[%w:_-]+$")
+        then
+            -- Check if next element exists and is not a space, Str("comma" or "period")
+            local next_el = inlines[i + 1]
+            if next_el and next_el.t ~= "Space" and next_el.t ~= "SoftBreak" and next_el.t ~= "LineBreak" and next_el.text ~= "," and next_el.text ~= "." then
+                -- Wrap citation in #[...]
+                local citation_text = inlines[i].text
+                table.insert(new_inlines, pandoc.RawInline('typst', '#[' .. citation_text .. ']'))
+                modified = true
+            else
+                -- Keep citation as is
+                table.insert(new_inlines, inlines[i])
+            end
+            i = i + 1
+        -- Preserve #[@ref] as Typst inline inside any paragraph
+        elseif inlines[i] and inlines[i].t == "Str" and inlines[i].text == "#" 
             and inlines[i+1] and inlines[i+1].t == "RawInline" and inlines[i+1].format == "typst"
             and inlines[i+1].text:match("^@[%w:_-]+$")
         then
@@ -60,13 +78,15 @@ function Para(el)
             table.insert(new_inlines, pandoc.RawInline('typst', '#[' .. ref .. ']'))
             -- Optionally, skip the following Str "-Pakete" if you only want #[@ref]
             i = i + 2 -- move past "#", and "@something"
+            modified = true
         else
             table.insert(new_inlines, inlines[i])
             i = i + 1
         end
     end
+    
     -- Only return new Para if something changed
-    if #new_inlines ~= #inlines then
+    if modified then
         return pandoc.Para(new_inlines)
     end
 
