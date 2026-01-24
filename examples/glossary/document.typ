@@ -283,6 +283,8 @@ show the long name of the terms.
 
 This text should link to @raspberry-pi.
 
+- #strong[#[@html:short]-Service]
+
 = Glossary
 <glossary>
 #print-glossary(glossary-data)

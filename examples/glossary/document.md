@@ -12,6 +12,8 @@ The second occurrence of [@html], [@fpga] and [@css] in the document shouldn't s
 
 This text should link to [@raspberry-pi].
 
+- **[@html:short]-Service**
+
 # Glossary
 
 `#print-glossary(glossary-data)`{=typst}
