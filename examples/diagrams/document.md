@@ -1,11 +1,11 @@
 ---
 listings: true
+date: 2026-01-22
 ---
 
 # PlantUML
 
 This text should link to @plantuml-test.
-
 
 ```plantuml {caption="PlantUML Test" align=left #plantuml-test}
 @startuml

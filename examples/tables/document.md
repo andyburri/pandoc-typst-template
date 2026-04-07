@@ -1,3 +1,7 @@
+---
+date: 2026-01-22
+---
+
 # Outline
 
 `#outline(target: figure.where(kind: table))`{=typst}

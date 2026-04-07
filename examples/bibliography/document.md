@@ -1,3 +1,7 @@
+---
+date: 2026-01-22
+---
+
 # Demo with a Bibliography
 
 `#lorem(100)`{=typst}

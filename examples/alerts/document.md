@@ -1,3 +1,7 @@
+---
+date: 2026-01-22
+---
+
 > [!NOTE]
 > Useful information that users should know, even when skimming content.
 

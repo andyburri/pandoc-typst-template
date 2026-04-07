@@ -1,5 +1,6 @@
 ---
 glossary: glossary.yaml
+date: 2026-01-22
 ---
 
 # Glossary Test

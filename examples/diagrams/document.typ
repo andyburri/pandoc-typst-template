@@ -1,6 +1,16 @@
 //load defaults cfg dict
 #let cfg = (:)
 // overwrite defaults from pandoc variables
+#let parsedDate = "2026-01-22"
+#if type(parsedDate) == str {
+  let dateArray = parsedDate.split(regex("[-/.]"))
+  parsedDate = datetime(
+    year: int(dateArray.at(0)),
+    month: int(dateArray.at(1)),
+    day: int(dateArray.at(2)),
+  )
+}
+#(cfg.date = parsedDate)
 
 
 #(cfg.toc-depth = 3)
@@ -29,7 +39,7 @@
 #let make-header() = context {
   if disable-header-footer != true and disable-header != true [
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       cfg.at("header-left", default: cfg.at("title", default: none)),
       cfg.at("header-center", default: none),
@@ -79,7 +89,7 @@
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       footer-left(), cfg.at("footer-center", default: none), footer-right(),
     )
@@ -286,7 +296,7 @@ This text should link to @plantuml-test.
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("5505d51c5a1fc5da6fcd2c18b63b9933840e0cc4.svg"),
+#figure(image("e4f37950e59b08491d27f8e793794d1d5a24ad61.svg"),
   caption: [
     Mermaid Test
   ]

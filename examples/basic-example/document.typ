@@ -1,6 +1,16 @@
 //load defaults cfg dict
 #let cfg = (:)
 // overwrite defaults from pandoc variables
+#let parsedDate = "2026-01-22"
+#if type(parsedDate) == str {
+  let dateArray = parsedDate.split(regex("[-/.]"))
+  parsedDate = datetime(
+    year: int(dateArray.at(0)),
+    month: int(dateArray.at(1)),
+    day: int(dateArray.at(2)),
+  )
+}
+#(cfg.date = parsedDate)
 
 
 #(cfg.title = [Pandoc Typst Template])
@@ -30,7 +40,7 @@
 #let make-header() = context {
   if disable-header-footer != true and disable-header != true [
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       cfg.at("header-left", default: cfg.at("title", default: none)),
       cfg.at("header-center", default: none),
@@ -80,7 +90,7 @@
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       footer-left(), cfg.at("footer-center", default: none), footer-right(),
     )
@@ -322,7 +332,7 @@ Someone once said:
 Good typography is invisible --- you only notice it when it's bad.
 ]
 
-Images should also look good by default (see #[@my-img-ref]):
+Images should also look good by default (see @my-img-ref):
 
 #figure(image("../images/image.jpg"),
   caption: [
@@ -424,7 +434,7 @@ We also have link styles --- like this one to the
 #link("https://typst.app")[Typst website] --- that blend neatly into the
 text.
 
-Tables are supported as well (see #[@demo-table]):
+Tables are supported as well (see @demo-table):
 
 #figure(
   align(center)[#table(
@@ -442,7 +452,6 @@ Tables are supported as well (see #[@demo-table]):
   , kind: table
   )
 <demo-table>
-
 Inline code looks like this: `#let title = "Demo"`, and we even handle
 code inside headings.
 
@@ -460,3 +469,20 @@ spacing, and rhythm. A good document template shouldn't just look good
 --- it should make your writing feel comfortable to read. If you've made
 it this far, congratulations --- your Typst template is ready for real
 work.
+
+== Simple Table (without a caption)
+<simple-table-without-a-caption>
+#figure(
+  align(center)[#table(
+    columns: 3,
+    align: (left,left,left,),
+    table.header([Column One], [Column Two], [Column Three],),
+    table.hline(),
+    [Row One Left], [Row One Center], [Row One Right],
+    [Row Two Left], [Row Two Center], [Row Two Right],
+    [Row Three Left], [Row Three Center], [Row Three Right],
+  )]
+, numbering: none,
+  outlined: false,
+  kind: table
+  )

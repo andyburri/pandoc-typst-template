@@ -1,5 +1,6 @@
 ---
 disable-header-and-footer: true
+date: 2026-01-22
 ---
 
 # Blindtext
@@ -8,11 +9,11 @@ disable-header-and-footer: true
 
 `#lorem(30)`{=typst}
 
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
 
 ## Some more Blindtext
 

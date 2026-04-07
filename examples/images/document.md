@@ -1,3 +1,7 @@
+---
+date: 2026-01-22
+---
+
 `#outline(target: figure.where(kind: image))`{=typst}
 
 ```markdown

@@ -61,7 +61,7 @@ Mauris eget blandit nisi, faucibus imperdiet odio. Suspendisse blandit dolor sed
 #let make-header() = context {
   if disable-header-footer != true and disable-header != true [
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       cfg.at("header-left", default: cfg.at("title", default: none)),
       cfg.at("header-center", default: none),
@@ -111,7 +111,7 @@ Mauris eget blandit nisi, faucibus imperdiet odio. Suspendisse blandit dolor sed
     #line(length: 100%, stroke: cfg.at("header-and-footer-stroke", default: 1pt + black))
     #v(-par.spacing + 0.5em)
     #grid(
-      columns: (1fr, auto, 1fr),
+      columns: (auto, 1fr, auto),
       align: (left, center, right),
       footer-left(), cfg.at("footer-center", default: none), footer-right(),
     )
@@ -493,7 +493,7 @@ if mood == 'happy':
 ```
 , caption: [Mood detection],
 )<lst:code>
-You can then reference the code block like this (#[@lst:code]).
+You can then reference the code block like this (@lst:code).
 
 === Subsection 2
 <subsection-2>

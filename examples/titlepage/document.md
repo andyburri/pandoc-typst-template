@@ -7,6 +7,7 @@ titlepage-fg: white
 titlepage-rule: 4pt + yellow
 author: Author Name
 font: "noto sans"
+date: 2026-01-22
 ---
 
 # Some Text

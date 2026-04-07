@@ -3,6 +3,7 @@ heading-font: "source serif 4"
 font: "lato"
 code-font: "noto mono"
 listings: true
+date: 2026-01-22
 ---
 
 # Font Testing

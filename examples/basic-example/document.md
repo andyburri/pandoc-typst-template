@@ -1,5 +1,6 @@
 ---
 title: Pandoc Typst Template
+date: 2026-01-22
 ---
 
 # Demo of the Pandoc Typst Template
@@ -149,9 +150,7 @@ Tables are supported as well (see @demo-table):
 | Vader                   | Boulder, CO  | Vader Bomb         |
 | Razor Ramon             | Chuluota, FL | Razor's Edge       |
 
-: Demo Table
-
-<demo-table>
+: Demo Table {#demo-table}
 
 Inline code looks like this: `#let title = "Demo"`, and we even handle code inside headings.
 
@@ -166,3 +165,13 @@ Now we have. You probably don’t need to go deeper — most documents only need
 Let’s finish with a paragraph that’s long enough to show line wrapping, spacing, and rhythm.
 A good document template shouldn’t just look good — it should make your writing feel comfortable to read.
 If you’ve made it this far, congratulations — your Typst template is ready for real work.
+
+## Simple Table (without a caption)
+
+| Column One     | Column Two       | Column Three    |
+| :------------- | :--------------- | :-------------- |
+| Row One Left   | Row One Center   | Row One Right   |
+| Row Two Left   | Row Two Center   | Row Two Right   |
+| Row Three Left | Row Three Center | Row Three Right |
+
+: {.unlisted}

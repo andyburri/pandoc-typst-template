@@ -6,6 +6,7 @@ no-justify: true
 heading-font: raleway
 font: source serif 4
 header-and-footer-stroke: 1.5pt + blue
+date: 2026-01-22
 ---
 
 # Blindtext
