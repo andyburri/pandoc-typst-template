@@ -86,6 +86,9 @@ $endif$
 $if(code-font)$
 #(cfg.code-font = ($for(code-font)$"$code-font$"$sep$, $endfor$,))
 $endif$
+$if(header-footer-font)$
+#(cfg.header-footer-font = ($for(header-footer-font)$"$header-footer-font$"$sep$, $endfor$,))
+$endif$
 $if(fontsize)$
 #(cfg.fontsize = $fontsize$)
 $endif$
