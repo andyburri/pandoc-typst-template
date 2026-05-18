@@ -1,11 +1,22 @@
 //load defaults cfg dict
-$config.typ()$
+$base_cfg.typ()$
 
-// overwrite defaults from pandoc variables
+// load and join user cfg
+#let user_cfg = none
+$if(user-config)$
+#import "$user-config$" as uc
+#(user_cfg = uc.user_cfg)
+$else$
+$user_cfg.typ()$
+$endif$
+
+#(cfg = cfg + user_cfg)
+
+// overwrite base config from pandoc variables
 $if(date)$
 #let parsedDate = "$date$"
 #if type(parsedDate) == str {
-  let dateArray = parsedDate.split(regex("[-/.]"))
+  let dateArray = parsedDate.split("-")
   parsedDate = datetime(
     year: int(dateArray.at(0)),
     month: int(dateArray.at(1)),
@@ -15,49 +26,40 @@ $if(date)$
 #(cfg.date = parsedDate)
 $endif$
 
+// replace date placeholder
+#if cfg.date == "%today%" {
+  (cfg.date = datetime.today())
+}
+
 $if(dateformat)$
 #(cfg.dateformat = "$dateformat$".replace("\\", ""))
 $endif$
 
-$if(authors)$
-#(cfg.authors = (
-$for(authors)$
-$if(authors.name)$
-    ( name: "$authors.name$",
-      affiliation: [$authors.affiliation$],
-      email: "$authors.email$" ),
-$else$
-    ( name: "$authors$",
-      affiliation: [],
-      email: "" ),
-$endif$
-$endfor$
-    )
-)
-$elseif(author)$
+$if(author)$
 #(cfg.authors = (
 $for(author)$
 $if(author.name)$
     ( name: "$author.name$",
-      affiliation: [$author.affiliation$],
-      email: "$author.email$" ),
+      affiliation: "$author.affiliation$",
+      email: "$author.email$",
+    ),
 $else$
     ( name: "$author$",
-      affiliation: [],
-      email: "" ),
+      affiliation: "",
+      email: "",
+    ),
 $endif$
 $endfor$
-    )
-)
+  ))
 $endif$
 $if(title)$
-#(cfg.title = [$title$])
+#(cfg.title = "$title$")
 $endif$
 $if(subtitle)$
-#(cfg.subtitle = [$subtitle$])
+#(cfg.subtitle = "$subtitle$")
 $endif$
 $if(supervisor)$
-#(cfg.supervisor = [$supervisor$])
+#(cfg.supervisor = "$supervisor$")
 $endif$
 $if(keywords)$
 #(cfg.keywords = "$for(keywords)$$keywords$$sep$, $endfor$")
@@ -125,6 +127,9 @@ $endif$
 $if(toc-depth)$
 #(cfg.toc-depth = $toc-depth$)
 $endif$
+$if(toc-own-page)$
+#(cfg.toc-own-page = true)
+$endif$
 $if(lof)$
 #(cfg.lof = true)
 $endif$
@@ -149,23 +154,23 @@ $endif$
 $if(disable-footer)$
 #(cfg.disable-footer = true)
 $endif$
-$if(header-and-footer-stroke)$
-#(cfg.header-and-footer-stroke = $header-and-footer-stroke$)
-$endif$
-$if(toc-own-page)$
-#(cfg.toc-own-page = true)
+$if(header-footer-stroke)$
+#(cfg.header-footer-stroke = $header-footer-stroke$)
 $endif$
 $if(abstract-title)$
-#(cfg.abstract-title = "$abstract-title$")
+#(cfg.abstract-title = [$abstract-title$])
 $endif$
 $if(abstract)$
-#(cfg.abstract = "$abstract/nowrap$")
+#(cfg.abstract = [$abstract/nowrap$])
+$endif$
+$if(abstract-own-page)$
+#(cfg.abstract-own-page = $abstract-own-page$)
 $endif$
 $if(thanks-title)$
-#(cfg.thanks-title = "$thanks-title$")
+#(cfg.thanks-title = [$thanks-title$])
 $endif$
 $if(thanks)$
-#(cfg.thanks = "$thanks/nowrap$")
+#(cfg.thanks = [$thanks/nowrap$])
 $endif$
 $if(header-left)$
 #(cfg.header-left = "$header-left$")
@@ -196,6 +201,7 @@ $if(listing-prefix)$
 $endif$
 
 $default_styles.typ()$
+$yamltable.typ()$
 
 // listings
 #show raw.where(block: true): code => {
@@ -265,17 +271,21 @@ $if(titlepage)$
 $titlepage.typ()$
 $endif$
 
+$if(abstract)$
 $abstract.typ()$
+$elseif(thanks)$
+$abstract.typ()$
+$endif$
 
 $if(toc)$
 $toc.typ()$
 $endif$
 
 #set page(
-  numbering: cfg.at("page-numbering", default: "1"),
+  numbering: cfg.page-numbering,
   header: make-header(),
   footer: make-footer(),
-  columns: cfg.at("columns", default: 1),
+  columns: cfg.columns,
 )
 
 #counter(page).update(1)

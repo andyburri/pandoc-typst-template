@@ -2,7 +2,7 @@
 date: 2026-01-22
 ---
 
-`#outline(target: figure.where(kind: image))`{=typst}
+`#outline(target: figure.where(kind: image), title: "List of Figures")`{=typst}
 
 ```markdown
 `#outline(target: figure.where(kind: image))`{=typst}

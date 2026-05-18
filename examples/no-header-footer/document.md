@@ -1,5 +1,6 @@
 ---
-disable-header-and-footer: true
+disable-header: true
+disable-footer: true
 date: 2026-01-22
 ---
 

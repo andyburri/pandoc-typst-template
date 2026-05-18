@@ -1,6 +1,6 @@
 ---
 date: 2025-12-05
-dateformat: "[day].[month].[year]"
+dateformat: "[day]/[month]/[year]"
 ---
 
 # Blindtext
@@ -9,9 +9,9 @@ dateformat: "[day].[month].[year]"
 
 `#lorem(30)`{=typst}
 
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
-+ `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
+- `#lorem(10)`{=typst}
 
 ## Some more Blindtext
 

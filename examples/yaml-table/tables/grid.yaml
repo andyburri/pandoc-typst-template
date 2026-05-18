@@ -1,0 +1,13 @@
+columns:
+  - id: name
+    label: Name
+    align: left
+  - id: qty
+    label: Qty
+    align: right
+    width: 1fr
+rows:
+  - name: Widget
+    qty: "12"
+  - name: Gadget
+    qty: "7"

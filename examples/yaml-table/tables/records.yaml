@@ -1,0 +1,4 @@
+- part: Bolt
+  material: Steel
+- part: Nut
+  material: Brass

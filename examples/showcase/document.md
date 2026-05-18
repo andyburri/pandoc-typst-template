@@ -48,7 +48,7 @@ Term 2
 : Definition 2.1
 : Definition 2.2
 
-## Tables {#tables}
+## Tables
 
 | Feature | Description                 | Support |
 | ------: | :-------------------------- | :-----: |
@@ -56,7 +56,7 @@ Term 2
 |   Lists | Ordered and unordered lists |    ✓    |
 |    Code | Syntax highlighting         |    ✓    |
 
-: {typst:fill=striped}
+: {typst:fill=striped #table}
 
 ## Code Blocks
 
@@ -82,7 +82,7 @@ function greet(name: string): void {
 
 Here's an example image:
 
-![Example graph showing data visualization](https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?auto=format&fit=crop&w=1000&q=80){ width=75% }
+![Example graph showing data visualization](https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?auto=format&fit=crop&w=1000&q=80){ width=70% }
 
 ## Mathematical Equations
 
@@ -100,11 +100,7 @@ This is a reference to @formula-one
 
 ## Cross-references
 
-See [Section Tables](#tables) for more information.
-
-## Abbreviations
-
-The HTML{.abbr title="HyperText Markup Language"} specification is maintained by the W3C{.abbr title="World Wide Web Consortium"}.
+See [@table] for more information.
 
 ## Footnotes
 
@@ -118,11 +114,11 @@ Here's a sentence with a footnote[^1].
 
 ## Custom Divs
 
-::: {.warning}
+::: {typst:fill=orange typst:inset=6pt typst:stroke=orange.darken(50%) typst:radius=6pt typst:text:fill=orange.darken(80%)}
 This is a warning message styled with custom CSS.
 :::
 
-::: {.note}
+::: {typst:fill=blue typst:inset="(top: 12pt, bottom: 12pt, left: 6pt, right: 6pt)" typst:stroke=blue.darken(50%) typst:radius=6pt typst:text:fill=blue.lighten(90%)}
 This is a note message styled differently.
 :::
 
@@ -135,16 +131,3 @@ sequenceDiagram
     Alice->>Bob: Hi Bob
     Bob->>Alice: Hi Alice
 ```
-
-## Grid Table
-
-+-------------------------+
-| **Percentages** |
-+:=================:+====:+
-| Fortyfive | 45% |
-+-------------------+-----+
-| Twenty | 20% |
-+-------------------+-----+
-| Thirtyfive | 35% |
-+-------------------+-----+
-: {align=left}

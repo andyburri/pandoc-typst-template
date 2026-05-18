@@ -49,7 +49,7 @@ date: 2026-01-22
 
 : Unlisted Table {align=right .unlisted}
 
-# Plain Table
+# Plain Table `{typst:stroke=none}`
 
 |           |           |           |
 | :-------- | --------- | --------- |
@@ -57,7 +57,7 @@ date: 2026-01-22
 | Row Two   | Row Two   | Row Two   |
 | Row Three | Row Three | Row Three |
 
-: Plain Table {.plain}
+: Plain Table {typst:stroke=none}
 
 # Table with custom column widths `{columns="(25%, 30%, 1fr)"}`
 

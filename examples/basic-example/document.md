@@ -1,6 +1,6 @@
 ---
 title: Pandoc Typst Template
-date: 2026-01-22
+date: 2026-05-10
 ---
 
 # Demo of the Pandoc Typst Template

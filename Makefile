@@ -2,27 +2,28 @@
 
 EXAMPLES = basic-example bibliography dateformat showcase no-justify \
            no-header-footer code-listings titlepage columns tables \
-           custom-header-footer glossary images alerts diagrams fonts
+           custom-header-footer glossary images alerts diagrams fonts custom-config blocks \
+           yaml-table
 
-all: pdf typ preview
+all: pdf typ preview phd
 
 # --- Global PDF ---
 
 pdf:
 	@echo "Generating all PDFs"
 	@for example in $(EXAMPLES); do \
-		examples/md2pdf examples/$$example/document.md; \
+		echo "Generating PDF for $$example"; \
+		./md2pdf.sh examples/$$example/document.md; \
 	done
-	@cd examples/phd-example && bash ../md2pdf *.md document.pdf --metadata-file=metadata.yaml
 
 # --- Global Typst ---
 
 typ:
 	@echo "Generating all Typst files"
 	@for example in $(EXAMPLES); do \
-		examples/md2typ examples/$$example/document.md; \
+		echo "Generating Typst for $$example"; \
+		./md2pdf.sh examples/$$example/document.md --typ; \
 	done
-	@cd examples/phd-example && bash ../md2typ *.md document.typ --metadata-file=metadata.yaml
 
 # --- Global Preview ---
 
@@ -35,6 +36,13 @@ preview:
 	done
 	pdftoppm -r 150 -png examples/phd-example/document.pdf examples/phd-example/preview
 
+phd:
+	@echo "Generating Phd Example"
+	./md2pdf.sh examples/phd-example/*.md --typ examples/phd-example/document.typ --metadata examples/phd-example/metadata.yaml
+	./md2pdf.sh examples/phd-example/*.md --output examples/phd-example/document.pdf --metadata examples/phd-example/metadata.yaml
+	rm -f examples/phd-example/preview-*.png
+	pdftoppm -r 150 -png examples/phd-example/document.pdf examples/phd-example/preview
+
 # --- Per-example rule ---
 # Let each example name be a Make target.
 # Running `make basic-example` will:
@@ -44,7 +52,7 @@ preview:
 
 $(EXAMPLES):
 	@echo "Building all outputs for $@"
-	examples/md2typ examples/$@/document.md
-	examples/md2pdf examples/$@/document.md
+	./md2pdf.sh examples/$@/document.md --typ
+	./md2pdf.sh examples/$@/document.md
 	rm -f examples/$@/preview-*.png
 	pdftoppm -r 150 -png examples/$@/document.pdf examples/$@/preview
