@@ -277,9 +277,7 @@ $elseif(thanks)$
 $abstract.typ()$
 $endif$
 
-$if(toc)$
 $toc.typ()$
-$endif$
 
 #set page(
   numbering: cfg.page-numbering,
