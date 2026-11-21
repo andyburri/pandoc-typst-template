@@ -831,7 +831,52 @@
 
 
 
+#if cfg.toc or cfg.lof or cfg.lot {
+  set page(
+    numbering: cfg.toc-page-numbering,
+  )
 
+  show outline.entry.where(
+    level: 1,
+  ): set block(above: 0.75em)
+
+  if cfg.toc {
+    outline(
+      title: cfg.toc-title,
+      depth: cfg.toc-depth,
+    )
+
+    if cfg.toc-own-page {
+      pagebreak()
+    }
+  }
+
+  if cfg.lof {
+    outline(
+      title: cfg.lof-title,
+      target: figure.where(kind: image),
+    )
+
+    if cfg.lof-own-page {
+      pagebreak()
+    }
+  }
+
+  if cfg.lot {
+    outline(
+      title: cfg.lot-title,
+      target: figure.where(kind: table),
+    )
+
+    if cfg.lot-own-page {
+      pagebreak()
+    }
+  }
+
+  set page(
+    numbering: cfg.page-numbering,
+  )
+}
 #set page(
   numbering: cfg.page-numbering,
   header: make-header(),
@@ -984,4 +1029,4 @@ differently.
 ]
 == Mermaid Code
 <mermaid-code>
-#box(image("46c29fe4b85f551012b50f3ad5ae017daaa71b8f.pdf"))
+#box(image("cfc3db473b638a1c0c0a1cd1e5eec5d83bcb432d.pdf"))

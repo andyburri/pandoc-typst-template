@@ -845,7 +845,52 @@
 
 
 
+#if cfg.toc or cfg.lof or cfg.lot {
+  set page(
+    numbering: cfg.toc-page-numbering,
+  )
 
+  show outline.entry.where(
+    level: 1,
+  ): set block(above: 0.75em)
+
+  if cfg.toc {
+    outline(
+      title: cfg.toc-title,
+      depth: cfg.toc-depth,
+    )
+
+    if cfg.toc-own-page {
+      pagebreak()
+    }
+  }
+
+  if cfg.lof {
+    outline(
+      title: cfg.lof-title,
+      target: figure.where(kind: image),
+    )
+
+    if cfg.lof-own-page {
+      pagebreak()
+    }
+  }
+
+  if cfg.lot {
+    outline(
+      title: cfg.lot-title,
+      target: figure.where(kind: table),
+    )
+
+    if cfg.lot-own-page {
+      pagebreak()
+    }
+  }
+
+  set page(
+    numbering: cfg.page-numbering,
+  )
+}
 #set page(
   numbering: cfg.page-numbering,
   header: make-header(),
@@ -861,7 +906,7 @@ This text should link to @plantuml-test.
 
 #[
 #show figure: set align(left)
-#figure(image("acbf07d554f7cc1816dbe6de11f5c7cc5728598d.svg", alt: "PlantUML Test"),
+#figure(image("9071a98e99e97ed19568a5d2bf2ea94f5a5f7db4.svg", alt: "PlantUML Test"),
   caption: [
     PlantUML Test
   ]
@@ -873,7 +918,7 @@ This text should link to @plantuml-test.
 <mermaid>
 #[
 #show figure: set align(left)
-#figure(image("c117504954be71ac702be9f6f8c29798947a3cac.pdf", alt: "Mermaid Test"),
+#figure(image("f522bbf8b3163efa791f13205eb536af67740e76.pdf", alt: "Mermaid Test"),
   caption: [
     Mermaid Test
   ]
